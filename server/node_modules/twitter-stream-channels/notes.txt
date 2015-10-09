@@ -1,0 +1,114 @@
+var TwitterStreamChannels = require('twitter-stream-channels');
+var credentials = require('your.twitter.credentials.json');
+
+var client = new TwitterStreamChannels(credentials);
+
+var channels = {
+  "languages" : ['javascript','php','java','python','perl'],
+  "js-frameworks" : ['angularjs','jquery','backbone','emberjs'],
+  "web" : ['javascript','nodejs','html5','css','angularjs']
+};
+
+var stream = client.streamChannels(channels);
+
+stream.on('channels/languages',function(tweet){
+  console.log(tweet);//any tweet with 'javascript','php','java','python','perl'
+});
+
+stream.on('channels/js-frameworks',function(tweet){
+  console.log(tweet);//any tweet with 'angularjs','jquery','backbone','emberjs'
+});
+
+stream.on('channels/web',function(tweet){
+  console.log(tweet);//any tweet with 'javascript','nodejs','html5','css','angularjs'
+});
+
+stream.on('channels',function(tweet){
+  console.log(tweet);//any tweet with any of the keywords above
+});
+
+//sugar methods
+setTimeout(function(){
+    //those methods will modify the events emitted like "channels/channelName", so will be needed to :
+    // - inspect useless listener (by the lib) to remove them
+    // - update the needed listener for the new channels added (by the user)
+    stream.addChannels(someChannels);
+    stream.removeChannels(arrayOfChannelNames);
+    stream.setChannels(someChannels);
+},30000);
+
+//also forward basic events like :
+- connected
+- disconnected
+- reconnect
+- tweet -> forward to channels (is that really that ? watch out for duplicates, normalization/denormalization)
+
+//whatever needs to close stream some time
+setTimeout(function(){
+  stream.stop();//closes the stream connected to Twitter 
+},100000);
+
+----------
+
+client.streamChannels(channels);
+
+channels needs to be normalized to be passed to the track param
+but also need to be kept in memory when processing tweet.text to choose to which event to emit
+
+stream.on('channels/nameOfChannel')
+
+before adding the listener check if the channel exists
+
+add $keywords in tweets
+add $channel in tweets
+
+---------
+
+for full project (next)
+
+//finally, joining and leaving channels may be a bad idea, since if the user switch between tabs, he will loose a timelapsed infos, maybe better to
+//emit all channels from the server and listen on only one room from the client, passing for each tweet to which channel it belongs
+//so, the frontend service will manage and persist all data between views all along the visit (and keep updating infos even if the user isn't on the tab)
+//there will be some work on the frontend service on persistence + recovery from infos that wasn't processed (displayed) yet
+use socket.io channels http://socket.io/docs/rooms-and-namespaces/  -  http://stackoverflow.com/questions/16423150/socket-io-subscribe-to-multiple-channels
+
+stream.on('channels/languages',function(tweet){
+  io.sockets.in('languages').emit('message', { room: room, tweet: tweet });
+});
+
+//better as
+
+//for the emmit part from the server
+for(var channel in channels){
+  (function(channelName){
+    stream.on('channels/'+channelName,function(tweet){
+      io.sockets.in(channelName).emit(processTweet(tweet));//processTweet is here to remove all the none necessary parts of the tweet
+    });
+  })(channel);
+}
+
+//for the join part from the client
+socket.leave('javascript');//onchanging route
+socket.join('languages');//on landing on new controller
+
+//check the exact syntax according to socket io version (0.9.* or 1.*)
+
+---------
+
+better with no join or leave room + optimize to send only once all the channels (TODO)
+for(var channel in channels){
+  (function(channelName){
+    stream.on('channels/'+channelName,function(tweet){
+      io.sockets.emit({channel:channelName,tweet:processTweet(tweet)});//processTweet is here to remove all the none necessary parts of the tweet + each response has a tweet AND the channel from where it comes
+    });
+  })(channel);
+}
+
+---------
+
+I saw curious number in the unit-tests on the events, at first sight, I thought I had an optimization problem between :
+channels
+channels/name
+keywords/name
+Each one were taking more time than the other one.
+In fact, it was only that even if I captured only 10 tweets, even more were passing by (not captured by the listener, which is normal in real life - you have to wait until a tweet "fits" to your demands)
