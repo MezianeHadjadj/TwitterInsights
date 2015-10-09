@@ -1,0 +1,50 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:300);
+@import url(http://fonts.googleapis.com/css?family=Abel);
+
+body {
+
+}
+
+
+#canvas {
+/*width: 310px !important ; 
+height: 100%  !important ; */
+}
+#Profile {
+  position: absolute;
+  margin: auto;
+  margin-top: 20px;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 150px; height: 150px;
+  border-radius: 150px;
+}
+
+#Profile:before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 28px;
+  width: 92px; height: 92px;
+  border-radius: 162px;
+  border: 2px solid #BCBCBC;
+}
+
+
+
+#Profile img {
+  position: absolute;
+  border-radius: 150px;
+  top: 6px; left: 36px;
+  width: 80px; height: 80px;
+}
+
+#Profile span {
+  position: absolute;
+  bottom: 20px;
+  display: block;
+  width: 150px;
+  text-align: center;
+  font-family: 'Oswald';
+  color: #333;
+  font-size: 25px;
+}
+

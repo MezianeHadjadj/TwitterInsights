@@ -1,0 +1,61 @@
+
+
+.menu_twitter_insights {
+  font-size: 0;
+  position: relative;
+  padding: 0;
+  width: 350px;
+
+  margin-top: 140px;
+  margin-left: -90px;
+  user-select: none;
+}
+
+.menu_item_twitter_insights {
+  display: inline-block;
+    padding-right: 5px;
+  padding-left: 5px;
+  height: 50px;
+  background: #39CCCC;
+  font-size: 12px;
+  text-align: center;
+  line-height: 60px;
+  color: #fff;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.slider {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-left: -10px;
+  height: 4px;
+  background: yellow;
+  transition: all 0.5s;
+}
+/*  Ripple */
+
+.ripple {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  position: absolute;
+  opacity: 1;
+}
+
+.rippleEffect {
+  animation: rippleDrop .6s linear;
+}
+
+@keyframes rippleDrop {
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
