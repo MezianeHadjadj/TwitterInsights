@@ -1,0 +1,22 @@
+{
+  "manifest_version":2,
+  "name": "Angellist extension",
+  "version": "1.7",
+  "description": "Twitter Profile insights ",
+  "permissions":["storage"],
+  "content_scripts": [ {
+    "js": [ "jquery-min.jsf", "myscript.js","menudesign2/menujs.js"],
+    "matches": ["https://twitter.com/"],
+    "css": ["page/style.css","menudesign/menustyle.css","menudesign2/menustyle.css"]
+
+  }],
+ "web_accessible_resources": ["script.js"],
+  "background": {
+    "scripts": ["eventpage.js"],
+    "persistent": false
+  }
+
+
+  
+
+}
