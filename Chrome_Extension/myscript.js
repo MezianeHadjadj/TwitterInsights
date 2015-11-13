@@ -98,7 +98,7 @@ for (j in profile_elements){
 }
    if (name!="") {
 
-       var result="";
+       var result;
        var url = "https://api.angel.co/1/search?query=" + name + "&callback=parse&client_id=ID%20f1b889bdfdef6736ee350f6047773c54947a7f7d0adb60fc&access_token=07b6d69f0a41aec4d513a2232e28d86ad80ddfdf68b53298";
        var xhr = new XMLHttpRequest();
        xhr.open("GET", url, true);
@@ -106,9 +106,12 @@ for (j in profile_elements){
            if (xhr.readyState == 4) {
                // WARNING! Might be evaluating an evil script!
                //var resp = eval("(" + xhr.responseText + ")");
-               console.log( );
-               result = JSON.stringify(eval(xhr.responseText.substring(5)));
-
+               result =JSON.parse(JSON.stringify(eval(xhr.responseText.substring(5))));
+                console.log(result[0]["name"]+"iiii"+name)
+                if(result[0]["name"]==name){
+                    var angelist_id=result[0]["id"]
+                    console.log(angelist_id)
+                }
 
            }
        }
