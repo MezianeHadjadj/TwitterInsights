@@ -3,7 +3,7 @@ var  Stats= {};
 
 
 var actual_index=0;
-
+var profile_elements=[];
 
 // show icons after a scroll ps: not professional to append icons after one second, just imagine if the use has a bad connection
 $(window).scroll(function() {
@@ -40,7 +40,6 @@ Parser.getids(0,tweets,ids);
 ///////
 
 Parser.getids= function (actual_index, tweets, ids){
-  console.log(tweets.length+"ddd"+ids.length);
 	for (var i = actual_index; i <actual_index+tweets.length-1; i++) {
 		//add image to each tweet
     try {
@@ -64,12 +63,13 @@ Parser.getids= function (actual_index, tweets, ids){
     	DOM_img.id=id;
     	DOM_img.style.marginLeft = "50px";	
     	ids[i].parentNode.parentNode.appendChild(DOM_img);
+        profile_elements.push({"id": id,"name": ((tweets[i].childNodes[1]).textContent).split('\n')[2]});
 
   	//click event 
   	  $('#'+id).on('click', function(e){
-        
-    	 	console.log(e["currentTarget"]["id"]);
+
     	 	var clicked_id=e["currentTarget"]["id"];
+
     	 	//$( ".details" ).load( "https://www.dropbox.com/s/eguah1o4ajsakqw/index.html?dl=1" );
     	 	Stats.show_insights(e["currentTarget"]["id"]);
   	  });
@@ -89,7 +89,17 @@ Parser.getids= function (actual_index, tweets, ids){
 
 
 Stats.show_insights= function (profile_name){
+    var name="";
+for (j in profile_elements){
+    if (profile_elements[j]["id"]==profile_name){
+        name=profile_elements[j]["name"].trim();
+        break
+    }
+}
+   if (name!="") {
 
+     
+   }
       if(document.getElementById("details_twitter_insights")){
         try {
           var element=document.getElementById("details_twitter_insights");
@@ -98,11 +108,9 @@ Stats.show_insights= function (profile_name){
         	element2.parentNode.removeChild(element2);
         }catch(err){}
     	}
-       //var menu=" <div id='profile_globale'>   <div class='container_twitter_insights'><div class='accordion_twitter_insights'><dl><dt><a href='#accordion_twitter_insights1' id='accordion_twitter_insights1' aria-expanded='false' aria-controls='accordion_twitter_insights1' class='accordion_twitter_insights-title accordion_twitter_insightsTitle js-accordion_twitter_insightsTrigger'>Insights</a></dt><dd class='accordion_twitter_insights-content accordion_twitter_insightsItem is-collapsed' id='accordion_twitter_insights1' aria-hidden='true'> <p>Here put all insights</p> </dd> <dt> <a href='#accordion_twitter_insights2' id='accordion_twitter_insights2' aria-expanded='false' aria-controls='accordion_twitter_insights2' class='accordion_twitter_insights-title accordion_twitter_insightsTitle js-accordion_twitter_insightsTrigger'> Best Tweets</a> </dt> <dd class='accordion_twitter_insights-content accordion_twitter_insightsItem is-collapsed' id='accordion_twitter_insights2' aria-hidden='true'> <p>Here put all best tweets </p> </dd> <dt> <a href='#accordion_twitter_insights3' id='accordion_twitter_insights3' aria-expanded='false' aria-controls='accordion_twitter_insights3' class='accordion_twitter_insights-title accordion_twitter_insightsTitle js-accordion_twitter_insightsTrigger'> Related hashtags </a> </dt> <dd  class='accordion_twitter_insights-content accordion_twitter_insightsItem is-collapsed' id='accordion_twitter_insights3' aria-hidden='true'> <p>Here put all related hashtags </p> </dd> </dl> </div> </div> </div>";
-       var menu2="<ul class='menu_twitter_insights'>  <li  class='menu_item_twitter_insights' >Overview</li> <li class='menu_item_twitter_insights' > Popular tweets</li> <li class='menu_item_twitter_insights'  >Popular Hashtags</li></ul>";
-       // <li class='slider menu_item_twitter_insights'></li> 
-    var basic_profile= "<div id='details_twitter_insights' ><canvas id='canvas' ></canvas> <div  id='Profile'> " +menu2+"  <img id='image_of_twitter_profile' src='https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png'/><span>"+profile_name+"</span> <div class='menu_item_twitter_insights_content' ></div> </div></div>";
-     
+
+    var basic_profile= "<div id='details_twitter_insights' ><canvas id='canvas' ></canvas> <div  id='Profile'> " + "  <img id='image_of_twitter_profile' src='https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png'/><span>"+profile_name+"</span> <div class='menu_item_twitter_insights_content' ></div> </div></div>";
+
       $( ".twitter_profile_insight" ).append(basic_profile );
     //  $( ".details_twitter_insights").append(menu );
      Stats.menushow();
