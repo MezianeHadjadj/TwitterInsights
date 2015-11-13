@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96b2befd-ae99-46be-a74f-de464bdb64b7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Chrome_Extension/manifest.json" afterPath="$PROJECT_DIR$/Chrome_Extension/manifest.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Chrome_Extension/myscript.js" afterPath="$PROJECT_DIR$/Chrome_Extension/myscript.js" />
     </list>
     <ignored path="Angelist-extension.iws" />
@@ -37,8 +36,8 @@
       <file leaf-file-name="myscript.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Chrome_Extension/myscript.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21805792">
-              <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.6780239">
+              <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -189,8 +188,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Chrome_Extension/myscript.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21805792">
-          <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.6780239">
+          <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
           <folding />
         </state>
       </provider>

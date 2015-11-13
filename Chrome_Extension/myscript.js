@@ -98,7 +98,21 @@ for (j in profile_elements){
 }
    if (name!="") {
 
-     
+       var result="";
+       var url = "https://api.angel.co/1/search?query=" + name + "&callback=parse&client_id=ID%20f1b889bdfdef6736ee350f6047773c54947a7f7d0adb60fc&access_token=07b6d69f0a41aec4d513a2232e28d86ad80ddfdf68b53298";
+       var xhr = new XMLHttpRequest();
+       xhr.open("GET", url, true);
+       xhr.onreadystatechange = function () {
+           if (xhr.readyState == 4) {
+               // WARNING! Might be evaluating an evil script!
+               //var resp = eval("(" + xhr.responseText + ")");
+               console.log( );
+               result = JSON.stringify(eval(xhr.responseText.substring(5)));
+
+
+           }
+       }
+       xhr.send();
    }
       if(document.getElementById("details_twitter_insights")){
         try {
