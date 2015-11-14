@@ -107,10 +107,63 @@ for (j in profile_elements){
                // WARNING! Might be evaluating an evil script!
                //var resp = eval("(" + xhr.responseText + ")");
                result =JSON.parse(JSON.stringify(eval(xhr.responseText.substring(5))));
-                console.log(result[0]["name"]+"iiii"+name)
                 if(result[0]["name"]==name){
-                    var angelist_id=result[0]["id"]
-                    console.log(angelist_id)
+                    var angelist_id=result[0]["id"];
+                    // now we got angelist id so we will do another request with Users model.
+                    url="https://api.angel.co/1/users/"+angelist_id+"?callback=parse&client_id=ID%20f1b889bdfdef6736ee350f6047773c54947a7f7d0adb60fc&access_token=07b6d69f0a41aec4d513a2232e28d86ad80ddfdf68b53298";
+                    xhr.open("GET", url, true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) {
+
+                            var review={};
+                            result=JSON.parse(JSON.stringify(eval(xhr.responseText.substring(5))));
+                            if(Object.keys( result).indexOf("bio") ){
+                                review["bio"]=result["bio"];
+                            }
+                            if(Object.keys( result).indexOf("angellist_url")  ){
+                                review["angellist_url"]=result["angellist_url"];
+                            }
+                            if(Object.keys( result).indexOf("facebook_url") ){
+                                review["facebook_url"]=result["facebook_url"];
+                            }
+                            if(Object.keys( result).indexOf("linkedin_url") ){
+                                review["linkedin_url"]=result["linkedin_url"];
+                            }
+                            if(Object.keys( result).indexOf("github_url") ){
+                                review["github_url"]=result["github_url"];
+                            }
+                            if(Object.keys( result).indexOf("github_url") ){
+                                review["github_url"]=result["github_url"];
+                            }
+                            if(Object.keys( result).indexOf("resume_url") ){
+                                review["resume_url"]=result["resume_url"];
+                            }
+                            if(Object.keys( result).indexOf("what_ive_built") ){
+                                review["what_ive_built"]=result["what_ive_built"];
+                            }
+                            if(Object.keys( result).indexOf("what_i_do") ){
+                                review["what_i_do"]=result["what_i_do"];
+                            }
+                            if(Object.keys( result).indexOf("locations") ){
+                                review["locations"]=result["locations"];
+                            }
+                            if(Object.keys( result).indexOf("roles") ){
+                                review["roles"]=result["roles"];
+                            }
+                            if(Object.keys( result).indexOf("skills") ){
+                                review["skills"]=result["skills"];
+                            }
+                            if(Object.keys( result).indexOf("investor") ){
+                                review["investor"]=result["investor"];
+                            }
+                            console.log(review);
+
+
+
+
+                        }
+                    }
+                    xhr.send();
                 }
 
            }
