@@ -5,9 +5,9 @@
   "description": "Twitter Profile insights ",
   "permissions":[ "https://*/"],
   "content_scripts": [ {
-    "js": [ "jquery-min.js", "myscript.js","menudesign2/menujs.js"],
+    "js": [ "jquery-min.js", "myscript.js"],
     "matches": ["https://twitter.com/"],
-    "css": ["page/style.css","menudesign/menustyle.css","menudesign2/menustyle.css"]
+    "css": ["page/style.css"]
 
   }],
  "web_accessible_resources": ["script.js"],
