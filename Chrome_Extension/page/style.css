@@ -10,6 +10,11 @@ body {
 /*width: 310px !important ; 
 height: 100%  !important ; */
 }
+.menu_item_twitter_insights_content{
+ margin-top: 150px;
+  margin-left: -75px;
+  width: 300px;
+}
 #Profile {
   position: absolute;
   margin: auto;
