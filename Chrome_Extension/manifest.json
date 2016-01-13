@@ -5,7 +5,7 @@
   "description": "Twitter Profile insights ",
   "permissions":[ "https://*/"],
   "content_scripts": [ {
-    "js": [ "jquery-min.js", "myscript.js"],
+    "js": [ "jquery-min.js","angelistExtractor.js", "stats.js","myscript.js"],
     "matches": ["https://twitter.com/"],
     "css": ["page/style.css"]
 
