@@ -58,7 +58,11 @@ Parser.getids= function (actual_index, tweets, ids){
                 DOM_img.id=id;
                 DOM_img.style.marginLeft = "50px";
                 ids[i].parentNode.parentNode.appendChild(DOM_img);
-                profile_elements.push({"id": id,"name": ((tweets[i].childNodes[1]).textContent).split('\n')[2]});
+                profile_elements.push({
+                            "id": id,
+                            "name": ((tweets[i].childNodes[1]).textContent).split('\n')[2],
+                            "profile_image":  (tweets[i].childNodes[1]).childNodes[1].src
+                });
 
                 //click event
                 $('#'+id).on('click', function(e){
@@ -90,9 +94,11 @@ Parser.getids= function (actual_index, tweets, ids){
 Parser.show_insights= function (profile_name) {
     //get the name of user by id
     var name = "";
+    var profile_image="https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png";
     for (j in profile_elements) {
         if (profile_elements[j]["id"] == profile_name) {
             name = profile_elements[j]["name"].trim();
+            profile_image=profile_elements[j]["profile_image"]
             break
         }
     }
@@ -118,8 +124,6 @@ Parser.show_insights= function (profile_name) {
 
     //Create the Div
     if ((document.getElementsByClassName("twitter_profile_insight").length) == 0) {
-        console.log(document.getElementsByClassName("twitter_profile_insight"))
-        //var ddetails=
         var details = document.createElement("div");
     }else{
         var details=document.getElementsByClassName("twitter_profile_insight")[0]
@@ -132,16 +136,11 @@ Parser.show_insights= function (profile_name) {
     details.style.width="340px";
     details.style.background="#E9E9E9";
     //var basic_profile= "<canvas id='canvas' ></canvas> <div  id='Profile'> " + "  <img id='image_of_twitter_profile' src='https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png'/><span>"+'profile_name'+"</span> <div class='menu_item_twitter_insights_content' ></div> </div>";
-    var basic_profile= "  <canvas id='canvas' ></canvas>  <div  id='Profile'> " + " <a style=' margin-top=200px' id='delete_angelist_insights' class='close-thik'></a>  <img id='image_of_twitter_profile' src='https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png'/><span>"+profile_name+"</span> <div class='menu_item_twitter_insights_content' ></div> </div>";
+    var basic_profile= "  <canvas id='canvas' ></canvas>  <div id='Profile'> " + " <a style=' margin-top=200px' id='delete_angelist_insights' class='close-thik'></a>  <img id='image_of_twitter_profile' src='"+profile_image+" '/><span>"+profile_name+"</span> <div class='menu_item_twitter_insights_content' ></div> </div>";
     $( ".twitter_profile_insight" ).append(basic_profile );
     document.body.appendChild(details);
-
     $( "#delete_angelist_insights" ).click(function() {
-        console.log("delete insights");
-
         $( ".twitter_profile_insight" ).empty();
-        //var element = document.getElementById("twitter_profile_insight");
-       // element.parentNode.removeChild(element);
     });
 
 /////////////////////////Show menu//////////////////////
