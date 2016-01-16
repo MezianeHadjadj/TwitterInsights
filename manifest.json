@@ -3,6 +3,11 @@
   "name": "AngelList profile on Twitter",
   "version": "1.7",
   "description": "Twitter Profile insights ",
+  "icons": { "16": "/images/16_angelist_icon.png",
+            "48": "/images/48_angelist_icon.png",
+            "128": "/images/128_angelist_icon.png"
+  },
+
   "permissions":[ "https://*/"],
   "content_scripts": [ {
     "js": [ "jquery-min.js","angelistExtractor.js", "stats.js","main.js"],
