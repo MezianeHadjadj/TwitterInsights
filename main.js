@@ -1,7 +1,5 @@
 var  Parser= {};
 
-
-
 var actual_index=0;
 var profile_elements=[];
 
@@ -24,10 +22,8 @@ function after(){
     Parser.getids(actual_index,tweets,ids);
     actual_index=actual_index+tweets.length
 }
-//////////////////////
 
-//start show icons for each tweet
-
+////////////////////////Start show icons for each tweet//////////////////////
 Parser.init=function(){
 
     var tweets = document.getElementsByClassName("stream-item-header");
@@ -35,10 +31,9 @@ Parser.init=function(){
     actual_index=actual_index+tweets.length;
     Parser.getids(0,tweets,ids);
 };
+/////////////////Delete the dtails page///////////////
 
-
-///////
-
+/////////////////////Get Ids/////////////////////
 Parser.getids= function (actual_index, tweets, ids){
     for (var i = actual_index; i <actual_index+tweets.length-1; i++) {
         //add image to each tweet
@@ -84,20 +79,14 @@ Parser.getids= function (actual_index, tweets, ids){
 
                 });
             }
-
         }
         catch(err) {
-
         }
-
         //document.getElementById("stream-items-id").appendChild(node);
     }
     //Stats.show_insights("test")
-
 };
-
-
-
+//////////////////////Show details of profile//////////////////////
 Parser.show_insights= function (profile_name) {
     //get the name of user by id
     var name = "";
@@ -132,41 +121,32 @@ Parser.show_insights= function (profile_name) {
         console.log(document.getElementsByClassName("twitter_profile_insight"))
         //var ddetails=
         var details = document.createElement("div");
+    }else{
+        var details=document.getElementsByClassName("twitter_profile_insight")[0]
+        $( ".twitter_profile_insight" ).empty();
+    }
+    details.className="twitter_profile_insight";
+    details.style.position = "fixed";
+    details.style.top="30px";
+    details.style.right="0px";
+    details.style.width="340px";
+    details.style.background="#E9E9E9";
+    //var basic_profile= "<canvas id='canvas' ></canvas> <div  id='Profile'> " + "  <img id='image_of_twitter_profile' src='https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png'/><span>"+'profile_name'+"</span> <div class='menu_item_twitter_insights_content' ></div> </div>";
+    var basic_profile= "  <canvas id='canvas' ></canvas>  <div  id='Profile'> " + " <a style=' margin-top=200px' id='delete_angelist_insights' class='close-thik'></a>  <img id='image_of_twitter_profile' src='https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png'/><span>"+profile_name+"</span> <div class='menu_item_twitter_insights_content' ></div> </div>";
+    $( ".twitter_profile_insight" ).append(basic_profile );
+    document.body.appendChild(details);
 
+    $( "#delete_angelist_insights" ).click(function() {
+        console.log("delete insights");
 
-        }else{
-            var details=document.getElementsByClassName("twitter_profile_insight")[0]
-            $( ".twitter_profile_insight" ).empty();
+        $( ".twitter_profile_insight" ).empty();
+        //var element = document.getElementById("twitter_profile_insight");
+       // element.parentNode.removeChild(element);
+    });
 
-        }
-        details.className="twitter_profile_insight";
-        details.style.position = "fixed";
-        details.style.top="30px";
-        details.style.right="0px";
-        details.style.width="340px";
-        details.style.background="#E9E9E9";
-        //var basic_profile= "<canvas id='canvas' ></canvas> <div  id='Profile'> " + "  <img id='image_of_twitter_profile' src='https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png'/><span>"+'profile_name'+"</span> <div class='menu_item_twitter_insights_content' ></div> </div>";
-        var basic_profile= " <div  id='Profile'> " + "  <img id='image_of_twitter_profile' src='https://s3-us-west-2.amazonaws.com/harriscarney/images/150x150.png'/><span>"+profile_name+"</span> <div class='menu_item_twitter_insights_content' ></div> </div>";
-        $( ".twitter_profile_insight" ).append(basic_profile );
-        document.body.appendChild(details);
-
-
-
-
-///////////////
-
-
-
-///show menu
-  //  Stats.show_dots();
+/////////////////////////Show menu//////////////////////
+    Stats.show_dots();
 };
-
-
-
-
-
-
-
 
 
 
